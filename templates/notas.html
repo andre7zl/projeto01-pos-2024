@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Boletim</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Disciplina</th>
+                <th>Faltas</th>
+                <th>Nota Etapa 1</th>
+                <th>Nota Etapa 2</th>
+                <th>Nota Etapa 3</th>
+                <th>Nota Etapa 4</th>
+                <th>Nota Final</th>
+                <th>Situação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in boletim_data %}
+                <tr>
+                    <td>{{ data.disciplina }}</td>
+                    <td>{{ data.numero_faltas }}</td>
+                    <td>{{ data.nota_etapa_1.nota if data.nota_etapa_1.nota else 'N/A' }}</td>
+                    <td>{{ data.nota_etapa_2.nota if data.nota_etapa_2.nota else 'N/A' }}</td>
+                    <td>{{ data.nota_etapa_3.nota if data.nota_etapa_3.nota else 'N/A' }}</td>
+                    <td>{{ data.nota_etapa_4.nota if data.nota_etapa_4.nota else 'N/A' }}</td>
+                    <td>{{ data.media_final_disciplina if data.media_final_disciplina else 'N/A' }}</td>
+                    <td>{{ data.situacao }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
