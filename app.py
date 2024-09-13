@@ -8,8 +8,8 @@ oauth = OAuth(app)
 
 oauth.register(
     name='suap',
-    client_id="",
-    client_secret="",
+    client_id="BhACS0DRDzQ4Q1CZ0pQt7hOk9zHfmUt3gzf9fPsE",
+    client_secret="yvHWRFLWzoQdr7e0kGOrqxO9Ldkwe9ebrAJXxjIG699xgs93oOPuXpJE3AUVuNziiuKxx7pt7kRvkUNrbr5WZIB0TMxYeLC4o8cgrPPpNnK5VT6DX850TZln7NRsMUKr",
     api_base_url='https://suap.ifrn.edu.br/api/',
     request_token_url=None,
     access_token_method='POST',
@@ -49,8 +49,10 @@ def auth():
 
 @app.route('/boletim')
 def boletim():
+    ano = request.args.get('ano', '2021')  # Pega o ano da consulta, padrão é 2021
     if 'suap_token' in session:
-        meus_dados = oauth.suap.get('v2/minhas-informacoes/boletim/2021/1/')
-        return render_template('notas.html', boletim_data=meus_dados.json())
+        # Obter dados do boletim para o ano selecionado
+        meus_dados = oauth.suap.get(f'v2/minhas-informacoes/boletim/{ano}/1/')
+        return render_template('notas.html', boletim_data=meus_dados.json(), ano=ano)
     else:
         return render_template('index.html')
